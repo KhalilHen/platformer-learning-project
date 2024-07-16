@@ -68,16 +68,21 @@ public class movement : MonoBehaviour
        jump();
 
         //calls the flip method
-        Flip();
+        if(isGrounded())
+        {
+
+            Flip();
+
+        }
 
 
     }
 
-
+    
     public void Flip()
     {
 
-        if (isFacingRight && horizontal < 0f && groundCheck || !isFacingRight && horizontal > 0f   )
+        if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
         {
 
             isFacingRight = !isFacingRight;
@@ -95,10 +100,10 @@ public class movement : MonoBehaviour
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
     }
-
+    
     public void jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded())
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded() )
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
 
