@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class movement : MonoBehaviour
 {
+
+
+
+
     // Start is called before the first frame update
    
     //movement code
@@ -20,24 +24,47 @@ public class movement : MonoBehaviour
 
     [SerializeField] Rigidbody2D rb;
     public double movementSpeed = 1f;
+    private GameObject platform; // Added to store the platform GameObject
 
     void Start()
     {
 
 
 
+
+
+        //Code for finding the platform object
+        Transform objectsParent = GameObject.Find("objects").transform;
+
+        if (objectsParent != null)
+        {
+            // Find the 'platform' GameObject within 'objects'
+            Transform platformTransform = objectsParent.Find("platform");
+
+            if (platformTransform != null)
+            {
+                GameObject platform = platformTransform.gameObject;
+                // Now 'platform' is the reference to the 'platform' GameObject
+                Debug.Log("Found platform: " + platform.name);
+            }
+            else
+            {
+                Debug.LogError("Could not find 'platform' GameObject inside 'objects'.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Could not find 'objects' GameObject.");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+        // Update is called once per frame
+        void Update()
     {
 
 
 
-
-        
-
-
+ 
 
 
 
@@ -64,21 +91,24 @@ public class movement : MonoBehaviour
 
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
 
+       if(Mathf.Abs(horizontal) > 0 && isGrounded() && platform == true)
+        {
+
+
+            Flip();
+        }
         //Calls the jump method
        jump();
 
-        //calls the flip method
-        if(isGrounded())
-        {
-
-            Flip();
-
-        }
+  
 
 
     }
 
-    
+    private void FixedUpdate()
+    {
+        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+    }
     public void Flip()
     {
 
@@ -96,9 +126,10 @@ public class movement : MonoBehaviour
 
     private bool isGrounded()
     {
+        
+            return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-
+        
     }
     
     public void jump()
