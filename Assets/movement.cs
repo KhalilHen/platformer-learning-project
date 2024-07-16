@@ -11,7 +11,7 @@ public class movement : MonoBehaviour
     private float horizontal;
 
     private float speed = 8f;
-    private float jumpingPower = 5f;
+    private float jumpingPower = 8f;
     //private float jumpingPower = 16f;
     private bool isFacingRight = true;
 
@@ -64,22 +64,23 @@ public class movement : MonoBehaviour
 
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
 
+        //Calls the jump method
+       jump();
 
-                    jump();
-
-
+        //calls the flip method
         Flip();
 
 
     }
 
+
     public void Flip()
     {
 
-        if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
+        if (isFacingRight && horizontal < 0f && groundCheck || !isFacingRight && horizontal > 0f   )
         {
 
-            isFacingRight = false;
+            isFacingRight = !isFacingRight;
             Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
