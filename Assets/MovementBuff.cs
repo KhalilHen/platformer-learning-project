@@ -14,7 +14,14 @@ public class MovementBuff : PowerupEffect
     // Start is called before the first frame update
     public override void apply(GameObject target)
     {
-        target.GetComponent<movement>().movementSpeed  += amount;    
+
+
+
+        movement movementComponent = target.GetComponent<movement>();
+        if (movementComponent != null)
+        {
+            movementComponent.speed += amount;
+        }
 
 
 

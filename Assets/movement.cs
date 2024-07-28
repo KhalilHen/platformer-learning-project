@@ -14,7 +14,7 @@ public class movement : MonoBehaviour
     //movement code
     private float horizontal;
 
-    private float speed = 8f;
+    public float speed = 8f;
     private float jumpingPower = 8f;
     //private float jumpingPower = 16f;
     private bool isFacingRight = true;
@@ -25,6 +25,8 @@ public class movement : MonoBehaviour
     [SerializeField] Rigidbody2D rb;
     public double movementSpeed = 1f;
     private GameObject platform; // Added to store the platform GameObject
+
+
 
     void Start()
     {
