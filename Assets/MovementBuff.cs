@@ -18,7 +18,6 @@ public class MovementBuff : PowerUpEffect
         {
             // Update the speed
             movementComponent.speed += amount;
-            Debug.Log($"Increased speed by {amount}. New speed: {movementComponent.speed}");
         }
         else
         {
