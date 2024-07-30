@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class itemBox : MonoBehaviour
+public class PowerUp : MonoBehaviour
 {
-
-    public PowerupEffect powerupEffect;
-    private void OnTriggerEnter2D(Collider2D collison)
-
-
+   
+    public PowerUpEffect PowerUpEffect;
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         Destroy(gameObject);
-        powerupEffect.apply(collison.gameObject);
+             PowerUpEffect.Apply(collision.gameObject);   
     }
 }

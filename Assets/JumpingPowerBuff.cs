@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "Powerups/HeatlhBuff") ]
+[CreateAssetMenu(menuName = "Powerups/jumpingpower")]
 
-public class MovementBuff : PowerUpEffect
+public class JumpingPowerBuff : PowerUpEffect
 {
-
+    // Start is called before the first frame update
     public float amount;
     public override void Apply(GameObject target)
     {
@@ -16,13 +15,11 @@ public class MovementBuff : PowerUpEffect
         movement movementComponent = target.GetComponent<movement>();
         if (movementComponent != null)
         {
-            // Update the speed
-            movementComponent.speed += amount;
-            Debug.Log($"Increased speed by {amount}. New speed: {movementComponent.speed}");
+            movementComponent.jumpingPower += amount;
         }
         else
         {
             Debug.LogError("Movement component not found on target.");
         }
     }
-}
+    }
