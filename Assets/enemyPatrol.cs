@@ -7,13 +7,17 @@ public class enemyPatrol : MonoBehaviour
     public GameObject pointA;
     public GameObject pointB;
     public float speed = 2f;
-    public float jumpForce = 5f;  // Adjust the jump force as needed
-    public float jumpInterval = 5f; // Time in seconds between jumps
+    public float jumpForce = 5f;
+    public float jumpInterval = 5f;
 
     private Rigidbody2D rb;
     private Animator animator;
     private Transform currentPoint;
-    private float nextJumpTime; // Time when the next jump should occur
+    private float nextJumpTime;
+
+    // Code for kill character
+    public GameObject player;
+    public Transform respawnPoint;
 
     void Start()
     {
@@ -28,27 +32,13 @@ public class enemyPatrol : MonoBehaviour
 
     void Update()
     {
-        Vector2 point = currentPoint.position - transform.position;
-        if (currentPoint == pointB.transform)
-        {
-            rb.velocity = new Vector2(speed, rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = new Vector2(-speed, rb.velocity.y);
-        }
+        Vector2 direction = (currentPoint.position - transform.position).normalized;
+        rb.velocity = new Vector2(direction.x * speed, rb.velocity.y);
 
         // Check if the enemy needs to change direction
         if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f)
         {
-            if (currentPoint == pointB.transform)
-            {
-                currentPoint = pointA.transform;
-            }
-            else
-            {
-                currentPoint = pointB.transform;
-            }
+            currentPoint = (currentPoint == pointB.transform) ? pointA.transform : pointB.transform;
         }
 
         // Handle jumping
@@ -66,7 +56,14 @@ public class enemyPatrol : MonoBehaviour
 
     private bool IsGrounded()
     {
-        // Check if the enemy is grounded by overlapping a small circle
         return Physics2D.OverlapCircle(transform.position - new Vector3(0, 0.5f, 0), 0.2f, LayerMask.GetMask("Ground"));
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            player.transform.position = respawnPoint.position;
+        }
     }
 }
