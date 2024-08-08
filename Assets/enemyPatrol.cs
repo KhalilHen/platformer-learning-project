@@ -17,7 +17,7 @@ public class enemyPatrol : MonoBehaviour
 
     // Code for kill character
     public GameObject player;
-    public Transform respawnPoint;
+    //public Transform respawnPoint;
 
     void Start()
     {
@@ -65,7 +65,7 @@ public class enemyPatrol : MonoBehaviour
         {
             //layer.transform.position = respawnPoint.position;
 
-            SceneManager.LoadSceneAsync(3);
+            SceneManager.LoadSceneAsync(2);
 
         }
     }
