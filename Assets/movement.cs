@@ -109,8 +109,9 @@ public class movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
-    }
+       rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+
+   }
     public void Flip()
     {
 
