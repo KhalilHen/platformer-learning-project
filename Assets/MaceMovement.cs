@@ -9,14 +9,11 @@ public class MaceMovement : MonoBehaviour
 
     public GameObject pointA;
     public GameObject pointB;
-    public float speed = 2f;
-    public float jumpForce = 5f;
-    public float jumpInterval = 5f;
+    private float speed = 20;
+   
 
     private Rigidbody2D rb;
-    private Animator animator;
     private Transform currentPoint;
-    private float nextJumpTime;
 
 
 
@@ -27,9 +24,7 @@ public class MaceMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
         currentPoint = pointB.transform;
-        animator.SetBool("isRunning", true);
     }
 
     // Update is called once per frame
@@ -39,29 +34,29 @@ public class MaceMovement : MonoBehaviour
 
 
 
-        Vector2 direction = (currentPoint.position - transform.position).normalized;
-        rb.velocity = new Vector2(direction.x * speed, rb.velocity.y);
+        Vector2 direction =(currentPoint.position - transform.position).normalized;
+        rb.velocity  = new Vector2(rb.velocity.x, direction.y * speed );
 
-        // Check if the enemy needs to change direction
-        if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f)
-        {
+        
+
+        if (Mathf.Abs(transform.position.y - currentPoint.position.y) < 0.5f)
+       {
             currentPoint = (currentPoint == pointB.transform) ? pointA.transform : pointB.transform;
         }
 
-  
     }
 
 
     private void OnCollisionEnter2D(Collision2D other)
+{
+    if (other.gameObject.CompareTag("Player"))
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            //layer.transform.position = respawnPoint.position;
+        //layer.transform.position = respawnPoint.position;
 
-            SceneManager.LoadSceneAsync(2);
+        SceneManager.LoadSceneAsync(2);
 
-        }
     }
+}
 }
 
 
