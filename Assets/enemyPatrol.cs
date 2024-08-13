@@ -61,7 +61,7 @@ public class enemyPatrol : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player") && healthStatus.health == 0)
+        if (other.gameObject.CompareTag("Player") && HealthValue.health == 0)
         {
             //layer.transform.position = respawnPoint.position;
 
@@ -70,7 +70,7 @@ public class enemyPatrol : MonoBehaviour
         } 
         else if (other.gameObject.CompareTag("Player"))
         {
-            healthStatus.health--;
+            HealthValue.health--;
 
         }
     }
