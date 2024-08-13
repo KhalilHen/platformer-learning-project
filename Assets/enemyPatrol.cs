@@ -61,11 +61,16 @@ public class enemyPatrol : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && healthStatus.health == 0)
         {
             //layer.transform.position = respawnPoint.position;
 
             SceneManager.LoadSceneAsync(2);
+
+        } 
+        else if (other.gameObject.CompareTag("Player"))
+        {
+            healthStatus.health--;
 
         }
     }

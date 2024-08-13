@@ -19,6 +19,7 @@ public class movement : MonoBehaviour
     //private float jumpingPower = 16f;
     private bool isFacingRight = true;
 
+    public static int Health = 3;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
